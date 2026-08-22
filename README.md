@@ -69,13 +69,22 @@ streamlit run app.py
 The app will open automatically in your browser at `http://localhost:8501`.
 
 ## Limitations & Future Work
-
-- The model predicts temperature from year, country, and decade/seasonal encodings only — it does
-  not use actual historical temperature values, precipitation, CO₂ levels, or other causal climate
-  factors, so it captures trend/seasonality patterns rather than true climate dynamics.
+- The model predicts temperature from country and year only — it does not use actual historical
+  temperature values, precipitation, CO₂ levels, or other causal climate factors, so it captures
+  trend patterns per country rather than true climate dynamics.
 - No cross-validation or hyperparameter search was performed beyond manual tuning of tree count and depth.
 - Future work could add confidence intervals on predictions, incorporate additional climate covariates,
   or evaluate performance separately per country/region.
+  
+## Features
+
+- Country + year temperature prediction (196 countries, 1950–2024)
+- 🌐 Interactive rotating world globe (Plotly orthographic projection) colored by mean temperature
+- 📈 Per-country historical trend chart
+- Random Forest model (Test R² = 0.733, MAE = 3.15°C, RMSE = 4.24°C)
+
+## Live App
+🔗 <ADD-YOUR-STREAMLIT-LINK-HERE-AFTER-REDEPLOY>
 
 ## License
 
