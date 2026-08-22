@@ -84,7 +84,7 @@ The app will open automatically in your browser at `http://localhost:8501`.
 - Random Forest model (Test R² = 0.733, MAE = 3.15°C, RMSE = 4.24°C)
 
 ## Live App
-🔗 <ADD-YOUR-STREAMLIT-LINK-HERE-AFTER-REDEPLOY>
+🔗 <https://temperature-prediction-project-njuttyubbfvtrq6pvk9jih.streamlit.app/>
 
 ## License
 
