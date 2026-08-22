@@ -22,7 +22,7 @@ model, le, trend_models = load_artifacts()
 def load_data():
     return pd.read_csv("temperature-medie-annuali-1950-2024.csv")
 
-model, le = load_artifacts()
+model, le, trend_models = load_artifacts()  
 df = load_data()
 
 st.title("🌍 Global Temperature Prediction App")
