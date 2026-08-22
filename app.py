@@ -12,7 +12,11 @@ def load_artifacts():
         model = pickle.load(f)
     with open("label_encoder.pkl", "rb") as f:
         le = pickle.load(f)
-    return model, le
+    with open("trend_models.pkl", "rb") as f:
+        trend_models = pickle.load(f)
+    return model, le, trend_models
+
+model, le, trend_models = load_artifacts()
 
 @st.cache_data
 def load_data():
@@ -35,10 +39,18 @@ with tab1:
         year = st.number_input("Enter Year", min_value=1950, max_value=2100, value=2025, step=1)
 
     if st.button("Predict Temperature", type="primary"):
-        country_enc = le.transform([country])[0]
-        input_data = pd.DataFrame([[country_enc, year]], columns=["country_enc", "year"])
-        prediction = model.predict(input_data)[0]
+        if year <= 2024:
+            country_enc = le.transform([country])[0]
+            input_data = pd.DataFrame([[country_enc, year]], columns=["country_enc", "year"])
+            prediction = model.predict(input_data)[0]
+            method = "Random Forest (interpolated within training data)"
+        else:
+            slope, intercept = trend_models[country]
+            prediction = slope * year + intercept
+            method = "linear trend extrapolation (beyond 2024 training data)"
+
         st.success(f"Predicted mean temperature for **{country}** in **{year}**: **{prediction:.2f} °C**")
+        st.caption(f"Method: {method}")
 
         hist = df[df["country"] == country].sort_values("year")
         if not hist.empty:
@@ -48,7 +60,8 @@ with tab1:
                        f"Year {int(latest['year'])}")
 
         if year > 2024:
-            st.caption("⚠️ Years beyond 2024 are extrapolated beyond the training data and less reliable.")
+            st.caption("⚠️ This is a linear trend projection, not a Random Forest prediction — "
+                       "treat it as a rough estimate, not a forecast.")
 
 #  World Globe 
 with tab2:
