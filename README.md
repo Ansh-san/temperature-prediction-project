@@ -41,8 +41,11 @@ On average, predictions are off by roughly 3-4°C, which is expected given the m
 year/country/decade-level features rather than richer historical or climatological inputs.
 
 ## App Screenshot
+## Screenshots
 
-![App Screenshot](images/app_screenshot.png)
+| Predict | World Globe | Country Trend |
+|---|---|---|
+| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe_png.png) | ![Trend](screenshots/trend_png.png) |
 
 ## Project Structure
 
