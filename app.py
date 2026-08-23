@@ -90,11 +90,11 @@ with tab1:
         year = st.number_input("Enter Year", min_value=1950, max_value=2100, value=2025, step=1)
 
     if st.button("Predict Temperature", type="primary"):
-    if year <= 2024:
-        country_enc = le.transform([country])[0]
-        input_data = pd.DataFrame([[country_enc, year]], columns=["country_enc", "year"])
-        prediction = model.predict(input_data)[0]
-        method = "RANDOM FOREST · INTERPOLATED"
+        if year <= 2024:
+            country_enc = le.transform([country])[0]
+            input_data = pd.DataFrame([[country_enc, year]], columns=["country_enc", "year"])
+            prediction = model.predict(input_data)[0]
+            method = "RANDOM FOREST · INTERPOLATED"
     else:
         slope, intercept = trend_models[country]
         prediction = slope * year + intercept
