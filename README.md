@@ -45,7 +45,7 @@ year/country/decade-level features rather than richer historical or climatologic
 
 | Predict | World Globe | Country Trend |
 |---|---|---|
-| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe_png.png) | ![Trend](screenshots/trend_png.png) |
+| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe.png.png) | ![Trend](screenshots/trend.png.png) |
 
 ## Project Structure
 
