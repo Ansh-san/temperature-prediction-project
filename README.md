@@ -85,6 +85,22 @@ The app will open automatically in your browser at `http://localhost:8501`.
 - 🌐 Interactive rotating world globe (Plotly orthographic projection) colored by mean temperature
 - 📈 Per-country historical trend chart
 - Random Forest model (Test R² = 0.733, MAE = 3.15°C, RMSE = 4.24°C)
+- ## Model Evaluation
+
+Overall test-set performance: **R² = 0.733, MAE = 3.15°C, RMSE = 4.24°C**
+
+Performance varies notably by country. Prediction error is lowest for smaller, climatically
+uniform countries and highest for large, climatically diverse ones — a single national average
+hides significant internal variation for a country like Canada or Kazakhstan, making its
+year-to-year mean harder to predict than a smaller country like Namibia or Uruguay.
+
+| Best predicted (MAE) | Worst predicted (MAE) |
+|---|---|
+| Namibia — 0.23°C | Canada — 18.13°C |
+| Uruguay — 0.25°C | Estonia — 11.85°C |
+| Mexico — 0.27°C | D.P.R. of Korea — 11.62°C |
+| Zimbabwe — 0.34°C | Kyrgyz Republic — 10.71°C |
+| Madagascar — 0.35°C | Czech Republic — 10.14°C |
 
 ## Live App
 🔗 <https://temperature-prediction-project-njuttyubbfvtrq6pvk9jih.streamlit.app/>
