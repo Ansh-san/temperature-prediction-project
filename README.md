@@ -59,11 +59,11 @@ year-to-year mean harder to predict than a smaller country like Namibia or Urugu
 
 | Predict | World Globe | Country Trend |
 |---|---|---|
-| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe.png) | ![Trend](screenshots/trend.png) |
+| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe.png.png) | ![Trend](screenshots/trend.png.png) |
 
 ## Project Structure
 ├── app.py # Streamlit web app
-├── temperature_model (1).pkl # trained Random Forest model
+├── temperature_model_v2.pkl # trained Random Forest model
 ├── label_encoder.pkl # country label encoder
 ├── trend_models.pkl # per-country linear trend coefficients
 ├── temperature-medie-annuali-1950-2024.csv # dataset
