@@ -15,8 +15,8 @@ web application.
 
 ## Dataset
 
-- **Source:** `<ADD DATASET SOURCE — e.g. Kaggle link, ISTAT (Italian national statistics), or original data provider>`
-- **Region/Coverage:** `<ADD — the filename suggests Italian annual average temperature data; confirm region/country>`
+[Global Mean Temperature by Country (1950–2024)](https://www.kaggle.com/datasets/lucalullo/global-mean-temperature-by-country-1950-2024) — Kaggle, by Luca Lullo.
+196 countries, annual mean surface temperature.
 - **Time range:** 1950–2024
 - **File:** `temperature-medie-annuali-1950-2024.csv`
 
