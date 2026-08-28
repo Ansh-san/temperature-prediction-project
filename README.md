@@ -1,91 +1,44 @@
-# Temperature Trend Prediction 🌡️
+# 🌍 Global Temperature Atlas
 
-A machine learning project for predicting annual temperature trends using historical climate data,
-built with Python, Pandas, Scikit-learn, and Streamlit — deployed as an interactive web app.
+An interactive ML web app predicting country-level annual temperature trends (1950–2024),
+built with Python, Scikit-learn, and Streamlit, featuring a rotating 3D world globe.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![Plotly](https://img.shields.io/badge/Plotly-Visualization-3f4f75)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## Overview
+🔗 **Live app:** https://temperature-prediction-project-njuttyubbfvtrq6pvk9jih.streamlit.app/
 
-This project builds a machine learning model to predict annual average temperature trends
-from historical climate records, and serves predictions through an interactive Streamlit
-web application.
+## Problem & Approach
+
+Climate data is usually explored through static charts. This project turns it into something
+interactive: pick any of 196 countries and any year from 1950 to 2100, and get an instant
+prediction, backed by a model trained on 75 years of real temperature records, alongside a
+rotating globe showing how temperature varies across the world in a given year.
+
+**Approach:**
+1. **Data** — 196 countries, annual mean temperature, 1950–2024 (see Dataset below)
+2. **Model** — Random Forest Regressor (50 trees, max depth 12) trained on country + year,
+   80/20 train-test split (`random_state=42`)
+3. **Extrapolation handling** — tree-based models can't predict beyond the range of years they
+   were trained on (every year past 2024 would return an identical value). To support future-year
+   predictions, the app switches to a per-country linear trend fit for any year beyond 2024
+4. **Deployment** — Streamlit app loading the trained model, label encoder, and trend models to
+   serve live predictions
 
 ## Dataset
 
 [Global Mean Temperature by Country (1950–2024)](https://www.kaggle.com/datasets/lucalullo/global-mean-temperature-by-country-1950-2024) — Kaggle, by Luca Lullo.
-196 countries, annual mean surface temperature.
-- **Time range:** 1950–2024
-- **File:** `temperature-medie-annuali-1950-2024.csv`
+196 countries, annual mean surface temperature, 1950–2024.
 
-## Approach
-
-1. **Data preprocessing** — sorted by country/year, encoded country names with a label encoder
-2. **Feature engineering** — year, decade, and cyclical (sin/cos) encodings of year to capture long-term trend and periodicity
-3. **Model** — Random Forest Regressor (50 trees, max depth 12), trained on an 80/20 train-test split (`random_state=42`)
-4. **Deployment** — Streamlit app (`app.py`) loads the trained model and label encoder to serve live predictions for any country/year combination
-
-## Results
-
-| Metric | Value |
-|---|---|
-| R² Score (test) | 0.7332 |
-| R² Score (train) | 0.7319 |
-| MAE | 3.15 °C |
-| RMSE | 4.24 °C |
-
-Train and test R² are nearly identical, indicating the model generalizes well and is not overfitting.
-On average, predictions are off by roughly 3-4°C, which is expected given the model uses only
-year/country/decade-level features rather than richer historical or climatological inputs.
-
-## App Screenshot
-## Screenshots
-
-| Predict | World Globe | Country Trend |
-|---|---|---|
-| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe.png.png) | ![Trend](screenshots/trend.png.png) |
-
-## Project Structure
-
-```
-├── app.py                                    # Streamlit web app
-├── temperature_model_v2.pkl                  # trained ML model (Random Forest)
-├── label_encoder.pkl                         # encoder for categorical features
-├── temperature-medie-annuali-1950-2024.csv   # dataset
-├── images/                                   # app screenshot
-├── requirements.txt
-├── LICENSE
-└── README.md
-```
-
-## How to Run
-
-```bash
-git clone https://github.com/Ansh-san/temperature-prediction-project.git
-cd temperature-prediction-project
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-The app will open automatically in your browser at `http://localhost:8501`.
-
-## Limitations & Future Work
-- The model predicts temperature from country and year only — it does not use actual historical
-  temperature values, precipitation, CO₂ levels, or other causal climate factors, so it captures
-  trend patterns per country rather than true climate dynamics.
-- No cross-validation or hyperparameter search was performed beyond manual tuning of tree count and depth.
-- Future work could add confidence intervals on predictions, incorporate additional climate covariates,
-  or evaluate performance separately per country/region.
-  
 ## Features
 
-- Country + year temperature prediction (196 countries, 1950–2024)
+- 🔮 Country + year temperature prediction, 1950–2100 (Random Forest for ≤2024, linear trend for >2024)
 - 🌐 Interactive rotating world globe (Plotly orthographic projection) colored by mean temperature
-- 📈 Per-country historical trend chart
-- Random Forest model (Test R² = 0.733, MAE = 3.15°C, RMSE = 4.24°C)
-- ## Model Evaluation
+- 📈 Per-country historical trend chart, 1950–2024
+
+## Model Evaluation
 
 Overall test-set performance: **R² = 0.733, MAE = 3.15°C, RMSE = 4.24°C**
 
@@ -102,8 +55,45 @@ year-to-year mean harder to predict than a smaller country like Namibia or Urugu
 | Zimbabwe — 0.34°C | Kyrgyz Republic — 10.71°C |
 | Madagascar — 0.35°C | Czech Republic — 10.14°C |
 
-## Live App
-🔗 <https://temperature-prediction-project-njuttyubbfvtrq6pvk9jih.streamlit.app/>
+## Screenshots
+
+| Predict | World Globe | Country Trend |
+|---|---|---|
+| ![Predict](screenshots/TEMPPREDICT.png) | ![Globe](screenshots/Globe.png) | ![Trend](screenshots/trend.png) |
+
+## Project Structure
+├── app.py # Streamlit web app
+├── temperature_model (1).pkl # trained Random Forest model
+├── label_encoder.pkl # country label encoder
+├── trend_models.pkl # per-country linear trend coefficients
+├── temperature-medie-annuali-1950-2024.csv # dataset
+├── screenshots/ # app screenshots
+├── requirements.txt
+├── LICENSE
+└── README.md
+
+
+## How to Run Locally
+
+```bash
+git clone https://github.com/Ansh-san/temperature-prediction-project.git
+cd temperature-prediction-project
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+The app opens at `http://localhost:8501`.
+
+## Limitations & Future Work
+
+- The model predicts temperature from country and year only — it does not use actual historical
+  temperature values, precipitation, CO₂ levels, or other causal climate factors, so it captures
+  trend patterns per country rather than true climate dynamics.
+- No cross-validation or hyperparameter search was performed beyond manual tuning of tree count and depth.
+- Years beyond 2024 use a linear trend fit rather than the Random Forest model, since tree-based
+  models cannot extrapolate past their training range — this is a rough projection, not a forecast.
+- Future work could add confidence intervals on predictions, incorporate additional climate
+  covariates, or perform proper hyperparameter tuning via cross-validation.
 
 ## License
 
